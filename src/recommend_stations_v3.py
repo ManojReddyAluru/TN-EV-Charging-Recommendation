@@ -55,22 +55,60 @@ def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return 2 * radius * math.asin(min(1.0, math.sqrt(a)))
 
 
+
 def geocode_city(city: str) -> tuple[float, float]:
     if not city or not city.strip():
         raise ValueError("City name cannot be empty.")
+
+    query = city.strip()
+    params = {
+        "q": f"{query}, Tamil Nadu, India",
+        "format": "jsonv2",
+        "limit": 1,
+    }
+
     try:
         response = _session.get(
             "https://nominatim.openstreetmap.org/search",
-            params={"q": city.strip() + ", Tamil Nadu, India", "format": "jsonv2", "limit": 1},
+            params=params,
+            headers={"User-Agent": USER_AGENT},
             timeout=REQUEST_TIMEOUT_SECONDS,
         )
         response.raise_for_status()
         results = response.json()
+
+    except requests.Timeout as exc:
+        logging.exception("Nominatim timed out while geocoding %s", query)
+        raise RuntimeError(
+            "The geocoding service timed out. Please try again shortly."
+        ) from exc
+
+    except requests.HTTPError as exc:
+        status = exc.response.status_code if exc.response is not None else "unknown"
+        logging.exception(
+            "Nominatim HTTP error %s while geocoding %s", status, query
+        )
+        raise RuntimeError(
+            f"The geocoding service returned HTTP {status}. Please try again later."
+        ) from exc
+
     except requests.RequestException as exc:
-        raise RuntimeError(f"Could not geocode '{city}'. Check your internet connection.") from exc
+        logging.exception("Nominatim connection error while geocoding %s", query)
+        raise RuntimeError(
+            "Could not connect to the geocoding service. Please try again later."
+        ) from exc
+
+    except ValueError as exc:
+        logging.exception("Invalid geocoding response for %s", query)
+        raise RuntimeError("The geocoding service returned an invalid response.") from exc
+
     if not results:
-        raise ValueError(f"Could not find '{city}' in Tamil Nadu. Try a more specific place name.")
+        raise ValueError(
+            f"Could not find '{query}' in Tamil Nadu. Try a more specific place name."
+        )
+
     return float(results[0]["lat"]), float(results[0]["lon"])
+
 
 
 def get_osrm_route(
