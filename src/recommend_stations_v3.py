@@ -54,12 +54,30 @@ def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     a = math.sin(dlat / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dlon / 2) ** 2
     return 2 * radius * math.asin(min(1.0, math.sqrt(a)))
 
+TAMIL_NADU_CITY_COORDS = {
+    "chennai": (13.0801, 80.2808),
+    "coimbatore": (11.0018, 76.9629),
+    "madurai": (9.9195, 78.1193),
+    "salem": (11.6643, 78.1460),
+    "tiruchirappalli": (10.7905, 78.7047),
+    "trichy": (10.7905, 78.7047),
+    "tirunelveli": (8.7139, 77.7567),
+    "vellore": (12.9165, 79.1325),
+    "erode": (11.3410, 77.7172),
+    "kanyakumari": (8.0883, 77.5385),
+    "thanjavur": (10.7870, 79.1378),
+}
+
 
 
 def geocode_city(city: str) -> tuple[float, float]:
     if not city or not city.strip():
         raise ValueError("City name cannot be empty.")
+    city_key = city.strip().casefold()
 
+    if city_key in TAMIL_NADU_CITY_COORDS:
+        return TAMIL_NADU_CITY_COORDS[city_key]
+    
     query = city.strip()
     params = {
         "q": f"{query}, Tamil Nadu, India",
