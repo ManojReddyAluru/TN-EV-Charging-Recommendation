@@ -1,0 +1,32 @@
+@"
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# IDE and logs
+.vscode/
+.idea/
+*.log
+"@ | Set-Content .gitignore
+# Research archives and generated outputs
+archive/
+outputs/
+data/raw/cea_ev_charging_report.pdf
+data/raw/cea_reports/
+data/processed/cea_monthly_analysis_summary.txt
+data/processed/cea_monthly_trend.png
+data/processed/demand_forecasts_v2.csv
+data/processed/jan2025_extracted_text.txt
+data/processed/tn_cea_monthly_consumption.csv

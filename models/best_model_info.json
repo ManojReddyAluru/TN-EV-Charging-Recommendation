@@ -1,0 +1,13 @@
+{
+  "selected_model": "Gradient Boosting",
+  "model_type": "ML",
+  "selection_metric": "Expanding-window validation MAE",
+  "validation_mae_mu": 0.4984,
+  "validation_rmse_mu": 0.6577,
+  "validation_months": 7,
+  "training_observations": 15,
+  "last_observed_month": "2026-03",
+  "target": "monthly_total_mu",
+  "unit": "MU",
+  "warning": "Only 15 monthly observations are available. The selected candidate is provisional and forecasts are experimental."
+}

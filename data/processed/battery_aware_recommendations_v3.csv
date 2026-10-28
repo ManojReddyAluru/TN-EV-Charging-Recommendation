@@ -1,0 +1,4 @@
+stop_number,station_id,station_name,city,latitude,longitude,connector,power_kw,distance_from_route_km,approach_distance_km,estimated_detour_km,route_progress_km,estimated_arrival_battery_percent,estimated_energy_to_station_kwh,estimated_grid_energy_to_full_kwh,estimated_charging_minutes,reaches_destination_after_full_charge,distance_to_next_stop_km,distance_to_destination_km
+1,evs_39051b74ee,"Walajah, Tamil Nadu",RANIPET,12.912664,79.364827,CCS2,30.0,0.02,109.3,0.09,109.22,32.9,18.85,29.84,59.7,False,114.04,
+2,evs_0d497a10d5,Eraiyur Village Tiruvannamalai,TIRUVANNAMALAI,12.278689,78.892849,CCS2,30.0,13.57,114.04,3.39,224.48,50.8,19.67,21.86,43.7,False,149.77,
+3,evs_4b0063ffde,"SIDCO INDUSTRIAL ESTATE, ARIYANUR POST, NH 47, , City=SALEM, District=SALEM, State=Tamil Nadu",SALEM,11.58764,78.066116,CCS2,60.0,0.02,149.77,10.27,363.97,35.4,25.83,28.71,28.7,True,,158.4
